@@ -11,8 +11,6 @@ retry.py apt-get install -qq \
     libssl-dev \
     libffi-dev \
 
-pip install cryptography
-
 retry.py pip install tox --disable-pip-version-check
 
 echo '{"verified": false, "results": []}' > test/results/bot/ansible-test-failure.json
