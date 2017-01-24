@@ -1,10 +1,10 @@
 boto
 boto3
+cryptography
 jinja2
 mock
 nose
 passlib
-pycrypto
 pytest
 pytest-mock
 pytest-xdist
