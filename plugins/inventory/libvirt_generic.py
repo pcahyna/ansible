@@ -110,7 +110,7 @@ class LibvirtInventory(object):
     def get_inventory(self):
         ''' Construct the inventory '''
 
-        inventory = dict(_meta=dict(hostvars=dict()))
+        inventory = dict(_meta=dict(hostvars=dict()), libvirt=dict(hosts=[]))
 
         conn = libvirt.openReadOnly(self.libvirt_uri)
         if conn is None:
@@ -159,6 +159,7 @@ class LibvirtInventory(object):
                         hostvars['libvirt_ip_address'] = ip_address
 
             inventory['_meta']['hostvars'][domain_name] = hostvars
+            inventory['libvirt']['hosts'].append(domain_name)
 
         return inventory
 
