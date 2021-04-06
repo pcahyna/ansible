@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 '''
 libvirt external inventory script
@@ -34,7 +34,7 @@ info about all of your managed instances.
 ######################################################################
 
 import argparse
-import ConfigParser
+import configparser
 import os
 import sys
 import libvirt
@@ -60,16 +60,16 @@ class LibvirtInventory(object):
         self.parse_cli_args()
 
         if self.args.host:
-            print _json_format_dict(self.get_host_info(), self.args.pretty)
+            print(_json_format_dict(self.get_host_info(), self.args.pretty))
         elif self.args.list:
-            print _json_format_dict(self.get_inventory(), self.args.pretty)
+            print(_json_format_dict(self.get_inventory(), self.args.pretty))
         else:  # default action with no options
-            print _json_format_dict(self.get_inventory(), self.args.pretty)
+            print(_json_format_dict(self.get_inventory(), self.args.pretty))
 
     def read_settings(self):
         ''' Reads the settings from the libvirt.ini file '''
 
-        config = ConfigParser.SafeConfigParser()
+        config = configparser.ConfigParser()
         config.read(
             os.path.dirname(os.path.realpath(__file__)) + '/libvirt.ini'
         )
@@ -114,12 +114,12 @@ class LibvirtInventory(object):
 
         conn = libvirt.openReadOnly(self.libvirt_uri)
         if conn is None:
-            print "Failed to open connection to %s" % self.libvirt_uri
+            print("Failed to open connection to %s" % self.libvirt_uri)
             sys.exit(1)
 
         domains = conn.listAllDomains()
         if domains is None:
-            print "Failed to list domains for connection %s" % self.libvirt_uri
+            print("Failed to list domains for connection %s" % self.libvirt_uri)
             sys.exit(1)
 
         for domain in domains:
